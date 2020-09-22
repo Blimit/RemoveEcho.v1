@@ -10,7 +10,8 @@ fr2 = 'D:/orig_0.8_add.txt'
 stopwords = 'D:/stopwords'
 
 def getfile(file):
-    txt1 = ""
+    txt1 = ''
+    txt = ''
     data = []
     keywords = []
     weighthub = []
@@ -25,15 +26,17 @@ def getfile(file):
             else:
                 continue
     data = txt1.split('，')
+
+    txt = txt.join(data)
     jieba.analyse.set_stop_words('./stopwords.txt')
-    for i in data :
-        for feature,weight in jieba.analyse.extract_tags(i ,topK=10,withWeight=True):
-            keywords.append(feature)
-            weighthub.append(int(10*weight))
+    for feature,weight in jieba.analyse.extract_tags(txt,topK=20,withWeight=True):
+        keywords.append(feature)
+        weighthub.append(weight)
     return keywords,weighthub
 
 if __name__ == "__main__":
     a,b = getfile(fr1)
-    print(b)
+    c,d = getfile(fr2)
+
 
 
